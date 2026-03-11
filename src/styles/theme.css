@@ -1,0 +1,35 @@
+:root {
+  --storm-white: #ffffff;
+  --storm-dark: #363a46;
+  --storm-orange: #d97d26;
+  --storm-rose: #c99298;
+  --storm-teal: #6bb8b0;
+}
+
+body {
+  background-color: var(--storm-dark);
+  color: var(--storm-white);
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: var(--storm-teal);
+}
+
+a:hover {
+  color: var(--storm-orange);
+}
+
+button {
+  background-color: var(--storm-orange);
+  border: none;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+button:hover {
+  background-color: var(--storm-teal);
+}
