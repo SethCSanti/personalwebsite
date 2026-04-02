@@ -1,26 +1,24 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-
+import { ThemeProvider } from "./context/ThemeContext"
 import Layout from "./components/Layout"
-import Home from "./pages/Home"
-import Author from "./pages/Author"
+import Home from "./pages/home"
+import Author from "./pages/author"
+import About from "./pages/about"
+import Now from "./pages/now"
 
-import "./styles/theme.css"
-
-function App() {
+export default function App() {
   return (
-    <BrowserRouter>
-
-      <Layout>
-
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/author" element={<Author />} />
-        </Routes>
-
-      </Layout>
-
-    </BrowserRouter>
+    <ThemeProvider>
+      <BrowserRouter>
+        <Layout>
+          <Routes>
+            <Route path="/"       element={<Home />} />
+            <Route path="/author" element={<Author />} />
+            <Route path="/about"  element={<About />} />
+            <Route path="/now"    element={<Now />} />
+          </Routes>
+        </Layout>
+      </BrowserRouter>
+    </ThemeProvider>
   )
 }
-
-export default App
