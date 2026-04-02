@@ -1,20 +1,19 @@
 import {
-  SiReact, SiMongodb, SiHtml5, SiCss3, SiJavascript
+  SiReact, SiMongodb, SiHtml5, SiCss, SiJavascript
 } from "react-icons/si";
-import { TbApi, TbWebhook } from "react-icons/tb";
-import { FiPuzzle, FiLock } from "react-icons/fi";
-import { BsFiletypeJson, BsFiletypeJsx } from "react-icons/bs";
+import { TbApi } from "react-icons/tb";
+import { FiPackage, FiLock, FiCode } from "react-icons/fi";
 
 const techIconMap = {
   "React":      <SiReact />,
   "MongoDB":    <SiMongodb />,
-  "WebSocket":  <TbWebhook />,
+  "WebSocket":  <FiCode />,
   "HTML":       <SiHtml5 />,
-  "CSS":        <SiCss3 />,
+  "CSS":        <SiCss />,
   "JavaScript": <SiJavascript />,
-  "JSON":       <BsFiletypeJson />,
+  "JSON":       <FiCode />,
   "API":        <TbApi />,
-  "JSX":        <BsFiletypeJsx />,
+  "JSX":        <SiReact />,
 };
 
 function ProjectIcon({ icon }) {
@@ -152,7 +151,7 @@ export default function Home() {
 
             <ProjectCard
               title="Browser Extension"
-              icon={<FiPuzzle style={{ color: "var(--storm-teal)" }} />}
+              icon={<FiPackage style={{ color: "var(--storm-teal)" }} />}
               description="A browser extension currently in development. Something good is coming — stay tuned."
               link={null}
               tech={["JavaScript"]}
