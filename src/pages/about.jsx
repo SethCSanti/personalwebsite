@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { useReveal } from "../hooks/useReveal"
+import PageHero from "../components/PageHero"
 import {
   SiPython, SiJavascript, SiReact, SiMongodb,
   SiHtml5, SiCss, SiGit, SiNodedotjs, SiVite
@@ -24,24 +25,40 @@ const skills = {
   ],
 }
 
+const CACHE_KEY = "gh_stats_cache"
+const CACHE_TTL = 7 * 24 * 60 * 60 * 1000 // 7 days in ms
+
 function GitHubStats({ username }) {
   const [stats, setStats] = useState(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    // Check cache first
+    try {
+      const cached = JSON.parse(localStorage.getItem(CACHE_KEY))
+      if (cached && Date.now() - cached.timestamp < CACHE_TTL) {
+        setStats(cached.data)
+        setLoading(false)
+        return
+      }
+    } catch (_) {}
+
+    // Fetch fresh
     fetch(`https://api.github.com/users/${username}`)
       .then(r => r.json())
-      .then(data => { setStats(data); setLoading(false) })
+      .then(data => {
+        localStorage.setItem(CACHE_KEY, JSON.stringify({ data, timestamp: Date.now() }))
+        setStats(data)
+        setLoading(false)
+      })
       .catch(() => setLoading(false))
   }, [username])
 
-  const items = loading
-    ? [{ label: "Public Repos" }, { label: "Followers" }, { label: "Following" }]
-    : [
-        { label: "Public Repos", value: stats?.public_repos },
-        { label: "Followers",    value: stats?.followers },
-        { label: "Following",    value: stats?.following },
-      ]
+  const items = [
+    { label: "Public Repos", value: stats?.public_repos },
+    { label: "Followers",    value: stats?.followers },
+    { label: "Following",    value: stats?.following },
+  ]
 
   return (
     <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
@@ -78,16 +95,22 @@ export default function About() {
   return (
     <div>
 
-      {/* Hero / bio */}
-      <section style={{ padding: "80px 0 64px", borderBottom: "1px solid var(--border)" }}>
+      <PageHero
+        image="/hero-about.jpg"
+        label="About Me"
+        title="Seth Conner"
+        subtitle="CS student, systems thinker, and fiction writer. I build software that solves real problems and write stories that explore impossible ones."
+      />
+
+      {/* Bio */}
+      <section style={{ padding: "64px 0", borderBottom: "1px solid var(--border)" }}>
         <div className="container">
           <div ref={bioRef} className="reveal" style={{
             display: "flex", gap: "56px", alignItems: "flex-start", flexWrap: "wrap",
           }}>
 
-            {/* Photo */}
+            {/* Photo placeholder — replace with <img> once you have your photo */}
             <div style={{ flexShrink: 0 }}>
-              {/* REPLACE the src below with your actual photo path e.g. "/photo.jpg" */}
               <div style={{
                 width: "180px", height: "220px", borderRadius: "12px", overflow: "hidden",
                 border: "1px solid var(--border)", boxShadow: "var(--card-shadow)",
@@ -96,9 +119,10 @@ export default function About() {
                 alignItems: "center", justifyContent: "center", gap: "10px",
                 position: "relative",
               }}>
-                {/* ↓ Once you have your photo, replace this entire div with:
-                    <img src="/your-photo.jpg" alt="Seth Conner"
-                      style={{ width:"100%", height:"100%", objectFit:"cover" }} />
+                {/*
+                  ↓ Replace this block with your photo:
+                  <img src="/your-photo.jpg" alt="Seth Conner"
+                    style={{ width:"100%", height:"100%", objectFit:"cover" }} />
                 */}
                 <div style={{
                   position: "absolute", top: 0, left: 0, right: 0, height: "45%",
@@ -115,27 +139,23 @@ export default function About() {
               </div>
             </div>
 
-            {/* Bio */}
             <div style={{ flex: 1, minWidth: "280px" }}>
-              <p className="section-label" style={{ color: "var(--storm-teal)" }}>About Me</p>
-              <h1 style={{ margin: "0 0 20px" }}>Seth Conner</h1>
               <p style={{ fontSize: "1.05rem", marginBottom: "16px" }}>
-                I'm a computer science student with a focus on robotics, systems design,
-                and full-stack development. I'm drawn to projects where the problem is
-                interesting and the craft matters.
+                I'm a computer science student focused on robotics, systems design,
+                and full-stack development. I'm drawn to projects where the problem
+                is interesting and the craft matters.
               </p>
               <p style={{ fontSize: "1.05rem", marginBottom: "16px" }}>
-                Outside of software, I write long-form fantasy fiction. My current novel,
-                <em> Letters to October</em>, follows Aiovi and a Resistance fighting to
-                escape a vast underground world before the government extinguishes everything
-                they know.
+                Outside of software, I write long-form fantasy fiction. My current
+                novel, <em>Letters to October</em>, follows Aiovi and a Resistance
+                fighting to escape a vast underground world before the government
+                extinguishes everything they know.
               </p>
               <p style={{ fontSize: "1.05rem" }}>
-                I believe the best engineers are also storytellers — and the best writers
-                think like systems designers.
+                I believe the best engineers are also storytellers — and the best
+                writers think like systems designers.
               </p>
             </div>
-
           </div>
         </div>
       </section>
@@ -210,9 +230,9 @@ export default function About() {
             </p>
             <div style={{ display: "flex", flexWrap: "wrap", gap: "14px" }}>
               {[
-                { icon: <FiMail />,    label: "Email",    href: "mailto:your@email.com",                              color: "var(--storm-orange)" },
-                { icon: <FiGithub />,  label: "GitHub",   href: "https://github.com/SethCSanti",                     color: "var(--text)" },
-                { icon: <FiLinkedin />,label: "LinkedIn", href: "https://www.linkedin.com/in/seth-conner-ba580b2a9/", color: "#0a66c2" },
+                { icon: <FiMail />,     label: "Email",    href: "mailto:your@email.com",                               color: "var(--storm-orange)" },
+                { icon: <FiGithub />,   label: "GitHub",   href: "https://github.com/SethCSanti",                      color: "var(--text)" },
+                { icon: <FiLinkedin />, label: "LinkedIn", href: "https://www.linkedin.com/in/seth-conner-ba580b2a9/",  color: "#0a66c2" },
               ].map(({ icon, label, href, color }) => (
                 <a key={label} href={href} target="_blank" rel="noopener noreferrer"
                   className="glass-card"

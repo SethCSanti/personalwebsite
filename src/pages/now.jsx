@@ -1,17 +1,15 @@
+import PageHero from "../components/PageHero"
+
 export default function Now() {
   return (
     <div>
-      <section style={{ padding: "80px 0 64px", borderBottom: "1px solid var(--border)" }}>
-        <div className="container">
-          <p className="section-label" style={{ color: "var(--storm-teal)" }}>
-            Last updated April 2026
-          </p>
-          <h1 style={{ margin: "0 0 16px" }}>What I'm Doing Now</h1>
-          <p style={{ maxWidth: "540px", fontSize: "1.05rem" }}>
-            A snapshot of what's currently taking up my time and energy.
-          </p>
-        </div>
-      </section>
+
+      <PageHero
+        image="/hero-now.jpg"
+        label="Last updated April 2026"
+        title="What I'm Doing Now"
+        subtitle="A snapshot of what's currently taking up my time and energy."
+      />
 
       <section style={{ padding: "64px 0" }}>
         <div className="container" style={{ maxWidth: "720px" }}>
@@ -31,7 +29,6 @@ export default function Now() {
                 are nearing the surface — the stakes are as high as they've ever been and
                 I'm pushing to get the ending on the page.
               </p>
-              {/* Mini progress bar */}
               <div>
                 <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "7px" }}>
                   <span style={{ fontSize: "0.72rem", color: "var(--text-faint)", textTransform: "uppercase", letterSpacing: "0.06em" }}>
@@ -66,7 +63,6 @@ export default function Now() {
             </div>
           </div>
 
-          {/* Footer note */}
           <p style={{ fontSize: "0.82rem", color: "var(--text-faint)", fontStyle: "italic" }}>
             Inspired by{" "}
             <a href="https://nownownow.com/about" target="_blank" rel="noopener noreferrer">

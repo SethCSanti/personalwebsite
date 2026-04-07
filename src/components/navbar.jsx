@@ -30,7 +30,7 @@ export default function Navbar() {
             <h2>Seth Conner</h2>
           </NavLink>
 
-          {/* Desktop links */}
+          {/* Desktop links + single toggle */}
           <div className="nav-links">
             <NavLink to="/" end style={linkStyle}>Software</NavLink>
             <NavLink to="/author" style={linkStyle}>Author</NavLink>
@@ -41,26 +41,14 @@ export default function Navbar() {
             </button>
           </div>
 
-          {/* Mobile right side */}
-          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-            <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle theme"
-              style={{ display: "none" }}
-              ref={el => {
-                if (el) {
-                  el.style.display = window.innerWidth <= 768 ? "flex" : "none"
-                }
-              }}
-            >
-              {theme === "dark" ? <FiSun /> : <FiMoon />}
-            </button>
-            <button
-              className="hamburger"
-              onClick={() => setMenuOpen(o => !o)}
-              aria-label="Toggle menu"
-            >
-              {menuOpen ? <FiX /> : <FiMenu />}
-            </button>
-          </div>
+          {/* Mobile: hamburger only — toggle is inside the dropdown */}
+          <button
+            className="hamburger"
+            onClick={() => setMenuOpen(o => !o)}
+            aria-label="Toggle menu"
+          >
+            {menuOpen ? <FiX /> : <FiMenu />}
+          </button>
 
         </div>
       </nav>
@@ -71,11 +59,9 @@ export default function Navbar() {
         <NavLink to="/author" style={linkStyle} onClick={closeMenu}>Author</NavLink>
         <NavLink to="/about" style={linkStyle} onClick={closeMenu}>About</NavLink>
         <NavLink to="/now" style={linkStyle} onClick={closeMenu}>Now</NavLink>
-        <div style={{ paddingTop: "8px" }}>
-          <button className="theme-toggle" onClick={() => { toggleTheme(); closeMenu() }} aria-label="Toggle theme">
-            {theme === "dark" ? <FiSun /> : <FiMoon />}
-          </button>
-        </div>
+        <button className="theme-toggle" onClick={() => { toggleTheme(); closeMenu() }} aria-label="Toggle theme">
+          {theme === "dark" ? <FiSun /> : <FiMoon />}
+        </button>
       </div>
     </>
   )
