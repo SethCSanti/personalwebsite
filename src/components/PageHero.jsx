@@ -20,8 +20,8 @@ export default function PageHero({ image, accent, label, title, subtitle, childr
           backgroundImage: `url(${image})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
-          opacity: 0.12,
-          filter: "blur(2px) saturate(0.7)",
+          opacity: 0.45,
+          filter: "blur(8px) saturate(0.8)",
           zIndex: 0,
         }} />
       )}

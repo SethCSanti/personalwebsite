@@ -1,6 +1,6 @@
 import { useLocation } from "react-router-dom"
 import { useEffect, useRef } from "react"
-import Navbar from "./Navbar"
+import Navbar from "./navbar"
 import Footer from "./Footer"
 
 function AnimatedPage({ children }) {
