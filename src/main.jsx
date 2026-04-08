@@ -1,10 +1,15 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './styles/theme.css'
-import App from './App.jsx'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./pages/home"
+import About from "./pages/about"
 
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-)
+export default function App() {
+  return (
+    <BrowserRouter basename="/personalwebsite">
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        {/* other routes */}
+      </Routes>
+    </BrowserRouter>
+  );
+}
