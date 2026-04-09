@@ -104,7 +104,7 @@ export default function Author() {
     <div>
 
       <PageHero
-        image="/hero-author.jpg"
+        image={`${import.meta.env.BASE_URL}hero-author.jpg`}
         accent="var(--storm-rose)"
         label="Author & Storyteller"
         title="Writing & Fiction"

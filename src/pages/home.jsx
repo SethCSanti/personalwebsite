@@ -148,7 +148,7 @@ export default function Home() {
     <div>
 
       <PageHero
-        image="/hero-cs.jpg"
+        image={`${import.meta.env.BASE_URL}hero-cs.jpg`}
         label="Computer Science Portfolio"
         title="Seth Conner"
         subtitle="CS student focused on robotics, systems design, and building meaningful software."

@@ -106,7 +106,7 @@ export default function About() {
     <div>
 
       <PageHero
-        image="/hero-about.jpg"
+        image={`${import.meta.env.BASE_URL}hero-about.jpg`}
         label="About Me"
         title="Seth Conner"
         subtitle="CS student, systems thinker, and fiction writer. I build software that solves real problems and write stories that explore impossible ones."

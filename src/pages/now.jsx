@@ -5,7 +5,7 @@ export default function Now() {
     <div>
 
       <PageHero
-        image="/hero-now.jpg"
+        image={`${import.meta.env.BASE_URL}hero-now.jpg`}
         label="Last updated April 2026"
         title="What I'm Doing Now"
         subtitle="A snapshot of what's currently taking up my time and energy."
