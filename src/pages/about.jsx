@@ -121,7 +121,7 @@ export default function About() {
 
             {/* Photo */}
             <img
-              src="/profile_pic.jpeg"
+              src={`${import.meta.env.BASE_URL}profile_pic.jpeg`}
               alt="Seth Conner"
               style={{
                 width: "180px",

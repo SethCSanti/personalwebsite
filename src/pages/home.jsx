@@ -153,7 +153,7 @@ export default function Home() {
         title="Seth Conner"
         subtitle="CS student focused on robotics, systems design, and building meaningful software."
       >
-        <a href="/resume.pdf" download="SethConner_Resume.pdf">
+        <a href={`${import.meta.env.BASE_URL}resume.pdf`} download="SethConner_Resume.pdf">
           <button>↓ &nbsp;Download Resume</button>
         </a>
       </PageHero>
