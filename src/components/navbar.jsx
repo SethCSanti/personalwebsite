@@ -1,65 +1,56 @@
-import { NavLink } from "react-router-dom"
 import { useState } from "react"
+import { NavLink } from "react-router-dom"
+import { FiMenu, FiMoon, FiSun, FiX } from "react-icons/fi"
 import { useTheme } from "../context/ThemeContext"
-import { FiSun, FiMoon, FiMenu, FiX } from "react-icons/fi"
+
+const navItems = [
+  { to: "/", label: "Software", end: true },
+  { to: "/author", label: "Author" },
+  { to: "/about", label: "About" },
+]
+
+const navClassName = ({ isActive }) => `nav-link${isActive ? " active" : ""}`
 
 export default function Navbar() {
   const { theme, toggleTheme } = useTheme()
   const [menuOpen, setMenuOpen] = useState(false)
-
-  const linkStyle = ({ isActive }) => ({
-    color: isActive ? "var(--storm-teal)" : "var(--text-muted)",
-    fontSize: "0.85rem",
-    fontWeight: isActive ? 500 : 400,
-    letterSpacing: "0.05em",
-    textTransform: "uppercase",
-    padding: "4px 0",
-    borderBottom: isActive ? "2px solid var(--storm-teal)" : "2px solid transparent",
-    transition: "all 0.2s",
-    textDecoration: "none",
-  })
-
   const closeMenu = () => setMenuOpen(false)
 
   return (
     <>
-      <nav className="navbar">
+      <nav className="navbar" aria-label="Primary navigation">
         <div className="container navbar-inner">
+          <NavLink className="brand" to="/" onClick={closeMenu}>Seth Conner</NavLink>
 
-          <NavLink to="/" style={{ textDecoration: "none" }} onClick={closeMenu}>
-            <h2>Seth Conner</h2>
-          </NavLink>
-
-          {/* Desktop links + single toggle */}
           <div className="nav-links">
-            <NavLink to="/" end style={linkStyle}>Software</NavLink>
-            <NavLink to="/author" style={linkStyle}>Author</NavLink>
-            <NavLink to="/about" style={linkStyle}>About</NavLink>
-            <NavLink to="/now" style={linkStyle}>Now</NavLink>
-            <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">
+            {navItems.map(({ to, label, end }) => (
+              <NavLink className={navClassName} to={to} end={end} key={to}>{label}</NavLink>
+            ))}
+            <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle color theme">
               {theme === "dark" ? <FiSun /> : <FiMoon />}
             </button>
           </div>
 
-          {/* Mobile: hamburger only — toggle is inside the dropdown */}
           <button
             className="hamburger"
-            onClick={() => setMenuOpen(o => !o)}
-            aria-label="Toggle menu"
+            onClick={() => setMenuOpen((open) => !open)}
+            aria-label="Toggle navigation menu"
+            aria-expanded={menuOpen}
           >
             {menuOpen ? <FiX /> : <FiMenu />}
           </button>
-
         </div>
       </nav>
 
-      {/* Mobile dropdown */}
       <div className={`mobile-menu ${menuOpen ? "open" : ""}`}>
-        <NavLink to="/" end style={linkStyle} onClick={closeMenu}>Software</NavLink>
-        <NavLink to="/author" style={linkStyle} onClick={closeMenu}>Author</NavLink>
-        <NavLink to="/about" style={linkStyle} onClick={closeMenu}>About</NavLink>
-        <NavLink to="/now" style={linkStyle} onClick={closeMenu}>Now</NavLink>
-        <button className="theme-toggle" onClick={() => { toggleTheme(); closeMenu() }} aria-label="Toggle theme">
+        {navItems.map(({ to, label, end }) => (
+          <NavLink className={navClassName} to={to} end={end} onClick={closeMenu} key={to}>{label}</NavLink>
+        ))}
+        <button
+          className="theme-toggle"
+          onClick={() => { toggleTheme(); closeMenu() }}
+          aria-label="Toggle color theme"
+        >
           {theme === "dark" ? <FiSun /> : <FiMoon />}
         </button>
       </div>

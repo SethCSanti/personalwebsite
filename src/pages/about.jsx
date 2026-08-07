@@ -1,41 +1,22 @@
 import { useEffect, useState } from "react"
-import { useReveal } from "../hooks/useReveal"
+import { FiGithub, FiLinkedin, FiMail } from "react-icons/fi"
 import PageHero from "../components/PageHero"
-import {
-  SiPython, SiJavascript, SiReact, SiMongodb,
-  SiHtml5, SiCss, SiGit, SiNodedotjs, SiVite,
-  SiCplusplus, SiMysql
-} from "react-icons/si"
-import { FiMail, FiGithub, FiLinkedin, FiBarChart2, FiBox, FiCode } from "react-icons/fi"
-import { TbApi, TbChartBar } from "react-icons/tb"
-import { FaCoffee } from "react-icons/fa"
+import { useReveal } from "../hooks/useReveal"
 
 const skills = {
-  "Languages": [
-    { name: "Python",      icon: <SiPython /> },
-    { name: "JavaScript",  icon: <SiJavascript /> },
-    { name: "C++",         icon: <SiCplusplus /> },
-    { name: "Java",        icon: <FaCoffee /> },
-    { name: "SQL",         icon: <SiMysql /> },
-    { name: "HTML",        icon: <SiHtml5 /> },
-    { name: "CSS",         icon: <SiCss /> },
-  ],
-  "Frameworks & Libraries": [
-    { name: "React",       icon: <SiReact /> },
-    { name: "Node.js",     icon: <SiNodedotjs /> },
-    { name: "Vite",        icon: <SiVite /> },
-    { name: "APIs",        icon: <TbApi /> },
-  ],
-  "Tools & Platforms": [
-    { name: "Git",         icon: <SiGit /> },
-    { name: "MongoDB",     icon: <SiMongodb /> },
-    { name: "Mendix",      icon: <FiBox /> },
-    { name: "Tableau",     icon: <TbChartBar /> },
-  ],
-  "Practices": [
-    { name: "Data Analysis", icon: <FiBarChart2 /> },
-  ],
+  "Languages": ["Python", "C++", "C#", "Java", "Go", "JavaScript", "HTML", "CSS", "TypeScript"],
+  "Systems & Low-Level": ["Memory Management", "Pointers", "Processor Architecture", "Concurrency", "Performance Optimization"],
+  "Algorithms & Data Structures": ["Graphs", "Trees", "Dynamic Programming", "Big-O Analysis"],
+  "Backend & Systems": ["REST APIs", "Distributed Systems", "SQL/MySQL"],
+  "Tools & Infrastructure": ["Docker", "Kubernetes", "Git"],
+  "AI / Data": ["Machine Learning Fundamentals", "Data Preprocessing", "Model Evaluation"],
 }
+
+const contactLinks = [
+  { icon: <FiMail />, label: "Email", href: "mailto:sethcconner@gmail.com" },
+  { icon: <FiGithub />, label: "GitHub", href: "https://github.com/SethCSanti" },
+  { icon: <FiLinkedin />, label: "LinkedIn", href: "https://www.linkedin.com/in/seth-conner-ba580b2a9/" },
+]
 
 const CACHE_KEY = "gh_stats_cache"
 const CACHE_TTL = 7 * 24 * 60 * 60 * 1000
@@ -52,11 +33,11 @@ function GitHubStats({ username }) {
         setLoading(false)
         return
       }
-    } catch (_) {}
+    } catch {}
 
     fetch(`https://api.github.com/users/${username}`)
-      .then(r => r.json())
-      .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
         localStorage.setItem(CACHE_KEY, JSON.stringify({ data, timestamp: Date.now() }))
         setStats(data)
         setLoading(false)
@@ -66,30 +47,18 @@ function GitHubStats({ username }) {
 
   const items = [
     { label: "Public Repos", value: stats?.public_repos },
-    { label: "Followers",    value: stats?.followers },
-    { label: "Following",    value: stats?.following },
+    { label: "Followers", value: stats?.followers },
+    { label: "Following", value: stats?.following },
   ]
 
   return (
-    <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
+    <div className="stats-grid">
       {items.map(({ label, value }) => (
-        <div key={label} className="glass-card" style={{
-          padding: "20px 28px", textAlign: "center", flex: "1", minWidth: "120px"
-        }}>
-          {loading ? (
-            <div className="skeleton" style={{ height: "36px", width: "60px", margin: "0 auto 8px" }} />
-          ) : (
-            <div style={{
-              fontSize: "1.8rem", fontWeight: 700,
-              fontFamily: "'Playfair Display', serif",
-              color: "var(--storm-teal)", lineHeight: 1, marginBottom: "6px",
-            }}>
-              {value ?? "—"}
-            </div>
-          )}
-          <div style={{ fontSize: "0.72rem", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--text-faint)" }}>
-            {label}
-          </div>
+        <div className="stat" key={label}>
+          {loading
+            ? <div className="skeleton skeleton--stat" />
+            : <div className="stat__value">{value ?? "—"}</div>}
+          <div className="stat__label">{label}</div>
         </div>
       ))}
     </div>
@@ -97,14 +66,13 @@ function GitHubStats({ username }) {
 }
 
 export default function About() {
-  const bioRef     = useReveal()
-  const skillsRef  = useReveal()
-  const githubRef  = useReveal()
+  const bioRef = useReveal()
+  const skillsRef = useReveal()
+  const githubRef = useReveal()
   const contactRef = useReveal()
 
   return (
     <div>
-
       <PageHero
         image={`${import.meta.env.BASE_URL}hero-about.jpg`}
         label="About Me"
@@ -112,141 +80,68 @@ export default function About() {
         subtitle="CS student, systems thinker, and fiction writer. I build software that solves real problems and write stories that explore impossible ones."
       />
 
-      {/* Bio */}
-      <section style={{ padding: "64px 0", borderBottom: "1px solid var(--border)" }}>
+      <section className="section section--bordered">
         <div className="container">
-          <div ref={bioRef} className="reveal" style={{
-            display: "flex", gap: "56px", alignItems: "flex-start", flexWrap: "wrap",
-          }}>
-
-            {/* Photo */}
-            <img
-              src={`${import.meta.env.BASE_URL}profile_pic.jpeg`}
-              alt="Seth Conner"
-              style={{
-                width: "180px",
-                height: "220px",
-                objectFit: "cover",
-                objectPosition: "center top",
-                borderRadius: "12px",
-                border: "1px solid var(--border)",
-                boxShadow: "var(--card-shadow)",
-                display: "block",
-                flexShrink: 0,
-              }}
-            />
-
-            <div style={{ flex: 1, minWidth: "280px" }}>
-              <p style={{ fontSize: "1.05rem", marginBottom: "16px" }}>
-                I'm a computer science student focused on robotics, systems design,
-                and full-stack development. I'm drawn to projects where the problem
-                is interesting and the craft matters.
-              </p>
-              <p style={{ fontSize: "1.05rem", marginBottom: "16px" }}>
-                Outside of software, I write long-form fantasy fiction. My current
-                novel, <em>Letters to October</em>, follows Aiovi and a Resistance
-                fighting to escape a vast underground world before the government
-                extinguishes everything they know.
-              </p>
-              <p style={{ fontSize: "1.05rem" }}>
-                I believe the best engineers are also storytellers — and the best
-                writers think like systems designers.
-              </p>
+          <div className="bio reveal" ref={bioRef}>
+            <img className="bio__photo" src={`${import.meta.env.BASE_URL}profile_pic.jpeg`} alt="Seth Conner" />
+            <div className="bio__copy">
+              <p>I'm a computer science student focused on robotics, systems design, and full-stack development. I'm drawn to projects where the problem is interesting and the craft matters.</p>
+              <p>Outside of software, I write long-form fantasy fiction. My current novel, <em>Letters to October</em>, follows Aiovi and a Resistance fighting to escape a vast underground world before the government extinguishes everything they know.</p>
+              <p>I believe the best engineers are also storytellers—and the best writers think like systems designers.</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Skills */}
-      <section style={{ padding: "64px 0", borderBottom: "1px solid var(--border)" }}>
+      <section className="section section--bordered">
         <div className="container">
-          <div ref={skillsRef} className="reveal">
-            <p className="section-label" style={{ color: "var(--storm-teal)" }}>Technical Skills</p>
-            <h2 style={{ margin: "0 0 40px" }}>What I Work With</h2>
-            <div style={{ display: "flex", flexDirection: "column", gap: "36px" }}>
+          <div className="reveal" ref={skillsRef}>
+            <p className="section-label">Technical Skills</p>
+            <h2 className="section-heading">What I Work With</h2>
+            <div className="skills-groups">
               {Object.entries(skills).map(([category, items]) => (
-                <div key={category}>
-                  <p style={{
-                    fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.1em",
-                    color: "var(--text-faint)", marginBottom: "14px", marginTop: 0,
-                  }}>
-                    {category}
-                  </p>
-                  <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
-                    {items.map(({ name, icon }) => (
-                      <div key={name} className="skill-pill">
-                        <span style={{ fontSize: "1rem", display: "flex" }}>{icon}</span>
-                        {name}
-                      </div>
-                    ))}
-                  </div>
-                </div>
+                <section className="skills-group" key={category}>
+                  <h3>{category}</h3>
+                  <ul className="skills-list">
+                    {items.map((item) => <li key={item}>{item}</li>)}
+                  </ul>
+                </section>
               ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* GitHub */}
-      <section style={{ padding: "64px 0", borderBottom: "1px solid var(--border)" }}>
+      <section className="section section--bordered">
         <div className="container">
-          <div ref={githubRef} className="reveal">
-            <p className="section-label" style={{ color: "var(--storm-teal)" }}>GitHub</p>
-            <h2 style={{ margin: "0 0 12px" }}>Activity</h2>
-            <p style={{ marginBottom: "28px" }}>
-              Find my work at{" "}
-              <a href="https://github.com/SethCSanti" target="_blank" rel="noopener noreferrer">
-                github.com/SethCSanti
-              </a>
-            </p>
+          <div className="reveal" ref={githubRef}>
+            <p className="section-label">GitHub</p>
+            <h2>Activity</h2>
+            <p>Find my work at <a href="https://github.com/SethCSanti" target="_blank" rel="noopener noreferrer">github.com/SethCSanti</a>.</p>
             <GitHubStats username="SethCSanti" />
-            <div style={{
-              marginTop: "28px", borderRadius: "12px", overflow: "hidden",
-              border: "1px solid var(--border)", padding: "20px",
-              background: "var(--glass-bg)",
-            }}>
-              <img
-                src="https://ghchart.rshah.org/6bb8b0/SethCSanti"
-                alt="GitHub contribution graph"
-                style={{ width: "100%", display: "block", borderRadius: "6px" }}
-              />
+            <div className="panel contribution-panel">
+              <img src="https://ghchart.rshah.org/64bdb3/SethCSanti" alt="Seth Conner's GitHub contribution graph" />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Contact */}
-      <section style={{ padding: "64px 0" }}>
+      <section className="section">
         <div className="container">
-          <div ref={contactRef} className="reveal">
-            <p className="section-label" style={{ color: "var(--storm-teal)" }}>Contact</p>
-            <h2 style={{ margin: "0 0 12px" }}>Get in Touch</h2>
-            <p style={{ maxWidth: "480px", marginBottom: "36px" }}>
-              Whether it's a software opportunity, a question about my writing,
-              or just to say hello — my inbox is open.
-            </p>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "14px" }}>
-              {[
-                { icon: <FiMail />,     label: "Email",    href: "mailto:your@email.com",                               color: "var(--storm-orange)" },
-                { icon: <FiGithub />,   label: "GitHub",   href: "https://github.com/SethCSanti",                      color: "var(--text)" },
-                { icon: <FiLinkedin />, label: "LinkedIn", href: "https://www.linkedin.com/in/seth-conner-ba580b2a9/",  color: "#0a66c2" },
-              ].map(({ icon, label, href, color }) => (
-                <a key={label} href={href} target="_blank" rel="noopener noreferrer"
-                  className="glass-card"
-                  style={{
-                    display: "flex", alignItems: "center", gap: "10px",
-                    padding: "14px 22px", color: "var(--text)",
-                    fontSize: "0.9rem", fontWeight: 500, textDecoration: "none",
-                  }}>
-                  <span style={{ fontSize: "1.1rem", color }}>{icon}</span>
-                  {label}
+          <div className="reveal" ref={contactRef}>
+            <p className="section-label">Contact</p>
+            <h2>Get in Touch</h2>
+            <p className="contact-copy">Whether it's a software opportunity, a question about my writing, or just to say hello—my inbox is open.</p>
+            <div className="contact-links">
+              {contactLinks.map(({ icon, label, href }) => (
+                <a className="contact-link" href={href} target="_blank" rel="noopener noreferrer" key={label}>
+                  {icon}{label}
                 </a>
               ))}
             </div>
           </div>
         </div>
       </section>
-
     </div>
   )
 }

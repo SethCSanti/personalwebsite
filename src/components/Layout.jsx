@@ -1,26 +1,19 @@
+import { useEffect, useState } from "react"
 import { useLocation } from "react-router-dom"
-import { useEffect, useRef } from "react"
-import Navbar from "./navbar"
 import Footer from "./Footer"
+import Navbar from "./navbar"
 
 function AnimatedPage({ children }) {
-  const ref = useRef(null)
+  const [visible, setVisible] = useState(false)
   const location = useLocation()
 
   useEffect(() => {
-    const el = ref.current
-    if (!el) return
-    el.style.opacity = "0"
-    el.style.transform = "translateY(12px)"
-    const t = requestAnimationFrame(() => {
-      el.style.transition = "opacity 0.3s ease, transform 0.3s ease"
-      el.style.opacity = "1"
-      el.style.transform = "translateY(0)"
-    })
-    return () => cancelAnimationFrame(t)
+    setVisible(false)
+    const frame = requestAnimationFrame(() => setVisible(true))
+    return () => cancelAnimationFrame(frame)
   }, [location.pathname])
 
-  return <div ref={ref}>{children}</div>
+  return <div className={`page-transition ${visible ? "visible" : ""}`}>{children}</div>
 }
 
 export default function Layout({ children }) {
