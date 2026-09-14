@@ -50,15 +50,15 @@ Project Cards
 
 ## Checklist
 
-- [ ] Create hero section for CS portfolio
-- [ ] Add resume download button
-- [ ] Upload resume PDF
-- [ ] Add project showcase section
-- [ ] Create project cards
-- [ ] Write descriptions for each project
-- [ ] Link GitHub repositories
-- [ ] Add screenshots or visuals
-- [ ] Ensure responsive layout
+- [x] Create hero section for CS portfolio
+- [x] Add resume download button
+- [x] Upload resume PDF
+- [x] Add project showcase section
+- [x] Create project cards
+- [x] Write descriptions for each project
+- [x] Link GitHub repositories
+- [x] Add screenshots or visuals
+- [x] Ensure responsive layout
 
 ## Benchmarks
 
@@ -95,13 +95,13 @@ Writing Portfolio
 
 ## Checklist
 
-- [ ] Write author introduction
-- [ ] Create writing portfolio section
-- [ ] Add book or story entries
-- [ ] Add descriptions or summaries
-- [ ] Include excerpts where appropriate
-- [ ] Add links to full works if available
-- [ ] Design layout for readability
+- [x] Write author introduction
+- [x] Create writing portfolio section
+- [x] Add book or story entries
+- [x] Add descriptions or summaries
+- [x] Include excerpts where appropriate
+- [x] Add links to full works if available
+- [x] Design layout for readability
 
 ## Benchmarks
 
@@ -144,12 +144,12 @@ resume.pdf
 
 ## Checklist
 
-- [ ] Create main HTML pages
-- [ ] Build navigation between sections
-- [ ] Implement responsive design
-- [ ] Organize assets and project files
-- [ ] Optimize layout for readability
-- [ ] Test across browsers and devices
+- [x] Create main HTML pages
+- [x] Build navigation between sections
+- [x] Implement responsive design
+- [x] Organize assets and project files
+- [x] Optimize layout for readability
+- [x] Test across browsers and devices
 
 ## Benchmarks
 
@@ -165,10 +165,10 @@ The website will be hosted publicly so it can be used as a portfolio and persona
 
 ## Checklist
 
-- [ ] Push repository to GitHub
-- [ ] Configure hosting (GitHub Pages or similar)
-- [ ] Verify website deployment
-- [ ] Test all links and downloads
+- [x] Push repository to GitHub
+- [x] Configure hosting (GitHub Pages or similar)
+- [x] Verify website deployment
+- [x] Test all links and downloads
 
 ## Benchmarks
 
@@ -181,10 +181,10 @@ The website will be hosted publicly so it can be used as a portfolio and persona
 # Future Improvements
 
 - [ ] Add blog posts about software projects
-- [ ] Add deeper project writeups
-- [ ] Expand writing portfolio
-- [ ] Improve UI/UX design
-- [ ] Add additional projects and written works over time
+- [x] Add deeper project writeups
+- [x] Expand writing portfolio
+- [x] Improve UI/UX design
+- [x] Add additional projects and written works over time
 
 ---
 
